@@ -1,6 +1,7 @@
 # coding: utf-8
 require "logger"
 require "logger/ltsv/version"
+require "active_support/logger"
 
 class Logger
   class LTSVFormatter < ::Logger::Formatter
@@ -29,7 +30,9 @@ class Logger
   end
 end
 
-class LTSVLogger < ::Logger
+class LTSVLogger < ::ActiveSupport::Logger
+  include ::LoggerSilence
+
   def initialize(*args)
     super
     @formatter = ::Logger::LTSVFormatter.new
